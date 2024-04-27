@@ -26,7 +26,8 @@ class driverLicense
     constructor(id, tier, issuanceDate, expiryDate, frontImg, backImg)
     {
         this.id = setInfo(this.id,id);
-        this.tier = setInfo(this.tier,tier);
+        this.tier = setInfo(this.tier,tier); 
+        this.convertTier();   
         this.frontImg = setInfo(this.frontImg,frontImg);
         this.backImg = setInfo(this.backImg,backImg);
         this.issuanceDate = setInfo(this.issuanceDate,issuanceDate);
@@ -34,6 +35,15 @@ class driverLicense
         //this.expiry= undefined;
     }
 
+    convertTier()
+    {
+        if(this.tier=='FC') this.tier='container';
+        else
+        if(this.tier>='D' && this.tier <='F') this.tier='coach';
+        else
+        if(this.tier=='C') this.tier='truck';
+        else this.tier='disqualified';
+    }
     /*getExpiryTime() {
         if (isExisted(this.expiryDate) && this.expiryDate !== 'Expired') {
             console.log("ExpiryDate: ", this.expiryDate);
@@ -55,6 +65,7 @@ class driverLicense
                 break;
             case 'tier':
                 this.tier = setInfo(this.tier, newValue);
+                this.convertTier();
                 break;
             case 'frontImg':
                 this.frontImg = setInfo(this.frontImg, newValue);
